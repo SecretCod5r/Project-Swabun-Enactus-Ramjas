@@ -1,0 +1,6 @@
+{
+  "name": "Project Swabun | Enactus Ramjas",
+  "description": "Project Swabun explores how discarded materials can be transformed into useful, sustainable alternatives through Unnati, Aaroha and Sehar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
