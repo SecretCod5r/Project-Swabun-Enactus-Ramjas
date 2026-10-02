@@ -8,7 +8,7 @@ export default function CustomCursor() {
 
   useEffect(() => {
     // Check if device supports hover/touch
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    if (typeof window === 'undefined' || (typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches)) {
       setIsTouch(true);
       return;
     }
@@ -18,15 +18,18 @@ export default function CustomCursor() {
       if (!isVisible) setIsVisible(true);
 
       const target = e.target as HTMLElement | null;
-      if (target) {
-        const isClickable =
-          target.tagName === 'BUTTON' ||
-          target.tagName === 'A' ||
-          target.tagName === 'INPUT' ||
-          target.closest('button') !== null ||
-          target.closest('a') !== null ||
-          target.getAttribute('role') === 'button';
-        setIsPointer(isClickable);
+      if (target && target.tagName) {
+        try {
+          const isClickable =
+            target.tagName === 'BUTTON' ||
+            target.tagName === 'A' ||
+            target.tagName === 'INPUT' ||
+            (typeof target.closest === 'function' && (target.closest('button') !== null || target.closest('a') !== null)) ||
+            (typeof target.getAttribute === 'function' && target.getAttribute('role') === 'button');
+          setIsPointer(!!isClickable);
+        } catch {
+          // ignore
+        }
       }
     };
 

@@ -23,6 +23,8 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<string>('hero');
 
   useEffect(() => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
     const sectionIds = [
       'problem',
       'idea',
